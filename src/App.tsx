@@ -19,7 +19,7 @@ export default function App() {
         <Contact />
       </main>
       <footer className="text-center py-8" style={{ color: '#475569', fontSize: '0.875rem', fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
-        <p>© 2025 · Crafted with ✦ in the cosmos</p>
+        <p>© 2026 · Okan Syailendra Wahyudi</p>
       </footer>
     </div>
   )
