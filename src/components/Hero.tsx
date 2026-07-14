@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 
 const ROLES = ['Software Developer', 'Web Developer', 'UI UX Designer', 'Game Developer', 'Cyber Security Enthusiast']
-
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0)
   const [displayed, setDisplayed] = useState('')
@@ -40,23 +39,23 @@ export default function Hero() {
   }, [displayed, isDeleting, roleIndex])
 
   return (
-    <section
-      id="hero"
-      onMouseMove={handleMouseMove}
-      style={{
-        position: 'relative',
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        padding: '0 1.5rem',
-        zIndex: 1,
-        overflow: 'hidden',
-        perspective: '1000px'
-      }}
-    >
+      <section
+        id="hero"
+        onMouseMove={handleMouseMove}
+        style={{
+          position: 'relative',
+          minHeight: '100svh',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+          padding: '6rem 1.5rem',
+          zIndex: 1,
+          overflow: 'hidden',
+          perspective: '1000px'
+        }}
+      >
       {/* Nebula glow orbs */}
       <div style={{
         position: 'absolute',
