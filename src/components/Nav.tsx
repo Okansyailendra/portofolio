@@ -102,80 +102,88 @@ export default function Nav() {
         </button>
       </div>
 
-      {/* Mobile menu (Premium Full-Screen HUD) */}
-      {open && (
-        <div style={{
-          position: 'fixed',
-          top: '68px',
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: 'rgba(5, 5, 26, 0.85)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-          padding: '3rem 2rem',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '2rem',
-          borderTop: '1px solid rgba(124, 58, 237, 0.2)',
-          overflowY: 'auto'
-        }}>
-          {/* Decorative glowing orb inside menu */}
-          <div style={{
-            position: 'absolute',
-            top: '30%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: 300,
-            height: 300,
-            background: 'radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%)',
-            filter: 'blur(40px)',
-            pointerEvents: 'none',
-            zIndex: 0
-          }} />
-
-          {links.map(({ href, label }) => {
-            const id = href.slice(1)
-            const isActive = active === id
-            return (
-              <a
-                key={href}
-                href={href}
-                onClick={() => setOpen(false)}
-                style={{
-                  position: 'relative',
-                  zIndex: 1,
-                  display: 'inline-block',
-                  padding: '0.5rem 1.5rem',
-                  fontFamily: 'Orbitron, sans-serif',
-                  fontSize: '1.4rem',
-                  fontWeight: isActive ? 700 : 500,
-                  color: isActive ? '#06b6d4' : '#e2e8f0',
-                  textDecoration: 'none',
-                  letterSpacing: '0.15em',
-                  textTransform: 'uppercase',
-                  transition: 'all 0.3s',
-                  textShadow: isActive ? '0 0 20px rgba(6, 182, 212, 0.6)' : 'none',
-                }}
-              >
+      {/* Mobile menu (Fluid Floating Glass Card) */}
+      <div style={{
+        position: 'absolute',
+        top: '75px',
+        right: '2rem',
+        width: 'calc(100vw - 4rem)',
+        maxWidth: '280px',
+        background: 'linear-gradient(145deg, rgba(20, 15, 45, 0.95), rgba(10, 5, 25, 0.98))',
+        backdropFilter: 'blur(24px)',
+        WebkitBackdropFilter: 'blur(24px)',
+        borderRadius: '24px',
+        padding: '1rem',
+        border: '1px solid rgba(167, 139, 250, 0.3)',
+        boxShadow: '0 20px 40px rgba(0,0,0,0.6), inset 0 0 20px rgba(167, 139, 250, 0.1)',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '0.25rem',
+        transform: open ? 'translateY(0) scale(1)' : 'translateY(-20px) scale(0.95)',
+        opacity: open ? 1 : 0,
+        pointerEvents: open ? 'auto' : 'none',
+        transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)', // Bouncy spring effect
+        transformOrigin: 'top right',
+        zIndex: 99
+      }}>
+        {links.map(({ href, label }) => {
+          const id = href.slice(1)
+          const isActive = active === id
+          return (
+            <a
+              key={href}
+              href={href}
+              onClick={() => setOpen(false)}
+              style={{
+                position: 'relative',
+                display: 'flex',
+                alignItems: 'center',
+                padding: '0.8rem 1rem',
+                borderRadius: '14px',
+                fontFamily: 'Plus Jakarta Sans, sans-serif',
+                fontSize: '1rem',
+                fontWeight: isActive ? 700 : 500,
+                color: isActive ? '#ffffff' : '#94a3b8',
+                background: isActive ? 'rgba(124, 58, 237, 0.2)' : 'transparent',
+                textDecoration: 'none',
+                transition: 'all 0.2s',
+                overflow: 'hidden'
+              }}
+            >
+              {/* Glow accent on the left */}
+              {isActive && (
+                <div style={{
+                  position: 'absolute',
+                  left: 0,
+                  top: '10%',
+                  bottom: '10%',
+                  width: '3px',
+                  background: '#06b6d4',
+                  boxShadow: '0 0 10px #06b6d4',
+                  borderRadius: '0 4px 4px 0'
+                }} />
+              )}
+              
+              {/* Active dot indicator */}
+              {isActive && (
+                <span style={{
+                  width: '6px',
+                  height: '6px',
+                  borderRadius: '50%',
+                  background: '#06b6d4',
+                  boxShadow: '0 0 10px #06b6d4',
+                  marginRight: '12px',
+                  marginLeft: '8px'
+                }} />
+              )}
+              
+              <span style={{ marginLeft: isActive ? 0 : '26px', transition: 'margin 0.2s' }}>
                 {label}
-                {isActive && (
-                  <span style={{
-                    position: 'absolute',
-                    bottom: 0,
-                    left: '20%',
-                    right: '20%',
-                    height: '2px',
-                    background: 'linear-gradient(90deg, transparent, #06b6d4, transparent)',
-                    boxShadow: '0 0 15px #06b6d4',
-                  }} />
-                )}
-              </a>
-            )
-          })}
-        </div>
-      )}
+              </span>
+            </a>
+          )
+        })}
+      </div>
 
       <style>{`
         @media (max-width: 640px) {
