@@ -1,12 +1,20 @@
 import { useEffect, useState } from 'react'
 
-const ROLES = ['Software Developer', 'Web Developer', 'UI UX Designer', 'Game Developer']
+const ROLES = ['Software Developer', 'Web Developer', 'UI UX Designer', 'Game Developer', 'Cyber Security Enthusiast']
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0)
   const [displayed, setDisplayed] = useState('')
   const [isDeleting, setIsDeleting] = useState(false)
   const [showCursor, setShowCursor] = useState(true)
+
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 30
+    const y = (e.clientY / window.innerHeight - 0.5) * 30
+    setMousePos({ x, y })
+  }
 
   useEffect(() => {
     const cursor = setInterval(() => setShowCursor(c => !c), 530)
@@ -34,6 +42,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
+      onMouseMove={handleMouseMove}
       style={{
         position: 'relative',
         minHeight: '100vh',
@@ -45,6 +54,7 @@ export default function Hero() {
         padding: '0 1.5rem',
         zIndex: 1,
         overflow: 'hidden',
+        perspective: '1000px'
       }}
     >
       {/* Nebula glow orbs */}
@@ -58,6 +68,8 @@ export default function Hero() {
         background: 'radial-gradient(circle, rgba(124,58,237,0.18) 0%, transparent 70%)',
         filter: 'blur(40px)',
         pointerEvents: 'none',
+        transform: `translate(${mousePos.x * -1.5}px, ${mousePos.y * -1.5}px)`,
+        transition: 'transform 0.1s ease-out'
       }} />
       <div style={{
         position: 'absolute',
@@ -69,6 +81,8 @@ export default function Hero() {
         background: 'radial-gradient(circle, rgba(6,182,212,0.12) 0%, transparent 70%)',
         filter: 'blur(40px)',
         pointerEvents: 'none',
+        transform: `translate(${mousePos.x * 2}px, ${mousePos.y * 2}px)`,
+        transition: 'transform 0.1s ease-out'
       }} />
 
       {/* Badge */}
@@ -101,18 +115,35 @@ export default function Hero() {
         animation: 'fadeInUp 0.9s ease 0.1s both',
       }}>
         <span style={{
-          background: 'linear-gradient(135deg, #ffffff 0%, #a78bfa 40%, #06b6d4 100%)',
+          display: 'inline-block',
+          color: 'transparent',
+          WebkitTextStroke: '1px rgba(255,255,255,0.2)',
+          background: 'linear-gradient(90deg, #ffffff, #e2e8f0, #a78bfa, #06b6d4, #ffffff)',
+          backgroundSize: '200% auto',
           WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
           backgroundClip: 'text',
+          animation: 'shimmer 5s linear infinite, float 6s ease-in-out infinite',
+          filter: 'drop-shadow(0 0 20px rgba(124,58,237,0.4))',
+          transform: `translate(${mousePos.x * 0.3}px, ${mousePos.y * 0.3}px)`,
+          transition: 'transform 0.2s ease-out',
+          padding: '0.1em 0'
         }}>
           Halo, Saya
         </span>
         <br />
         <span style={{
+          display: 'inline-block',
           color: 'transparent',
-          WebkitTextStroke: '1.5px rgba(167,139,250,0.9)',
-          textShadow: '0 0 40px rgba(124,58,237,0.4)',
+          WebkitTextStroke: '1px rgba(255,255,255,0.2)',
+          background: 'linear-gradient(90deg, #ffffff, #e2e8f0, #a78bfa, #06b6d4, #ffffff)',
+          backgroundSize: '200% auto',
+          WebkitBackgroundClip: 'text',
+          backgroundClip: 'text',
+          animation: 'shimmer 5s linear infinite, float 6s ease-in-out infinite',
+          filter: 'drop-shadow(0 0 20px rgba(124,58,237,0.4))',
+          transform: `translate(${mousePos.x * 0.5}px, ${mousePos.y * 0.5}px)`,
+          transition: 'transform 0.2s ease-out',
+          padding: '0.2em 0'
         }}>
           Okan Syailendra Wahyudi
         </span>
