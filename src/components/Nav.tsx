@@ -102,31 +102,78 @@ export default function Nav() {
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu (Premium Full-Screen HUD) */}
       {open && (
         <div style={{
-          background: 'rgba(5, 5, 26, 0.98)',
+          position: 'fixed',
+          top: '68px',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: 'rgba(5, 5, 26, 0.85)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
+          padding: '3rem 2rem',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '2rem',
           borderTop: '1px solid rgba(124, 58, 237, 0.2)',
-          padding: '1rem 2rem 1.5rem',
+          overflowY: 'auto'
         }}>
-          {links.map(({ href, label }) => (
-            <a
-              key={href}
-              href={href}
-              onClick={() => setOpen(false)}
-              style={{
-                display: 'block',
-                padding: '0.75rem 0',
-                fontFamily: 'Plus Jakarta Sans, sans-serif',
-                fontSize: '1rem',
-                color: '#e2e8f0',
-                textDecoration: 'none',
-                borderBottom: '1px solid rgba(255,255,255,0.05)',
-              }}
-            >
-              {label}
-            </a>
-          ))}
+          {/* Decorative glowing orb inside menu */}
+          <div style={{
+            position: 'absolute',
+            top: '30%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 300,
+            height: 300,
+            background: 'radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%)',
+            filter: 'blur(40px)',
+            pointerEvents: 'none',
+            zIndex: 0
+          }} />
+
+          {links.map(({ href, label }) => {
+            const id = href.slice(1)
+            const isActive = active === id
+            return (
+              <a
+                key={href}
+                href={href}
+                onClick={() => setOpen(false)}
+                style={{
+                  position: 'relative',
+                  zIndex: 1,
+                  display: 'inline-block',
+                  padding: '0.5rem 1.5rem',
+                  fontFamily: 'Orbitron, sans-serif',
+                  fontSize: '1.4rem',
+                  fontWeight: isActive ? 700 : 500,
+                  color: isActive ? '#06b6d4' : '#e2e8f0',
+                  textDecoration: 'none',
+                  letterSpacing: '0.15em',
+                  textTransform: 'uppercase',
+                  transition: 'all 0.3s',
+                  textShadow: isActive ? '0 0 20px rgba(6, 182, 212, 0.6)' : 'none',
+                }}
+              >
+                {label}
+                {isActive && (
+                  <span style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: '20%',
+                    right: '20%',
+                    height: '2px',
+                    background: 'linear-gradient(90deg, transparent, #06b6d4, transparent)',
+                    boxShadow: '0 0 15px #06b6d4',
+                  }} />
+                )}
+              </a>
+            )
+          })}
         </div>
       )}
 

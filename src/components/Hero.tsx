@@ -242,10 +242,7 @@ export default function Hero() {
 
       {/* Scroll indicator */}
       <div style={{
-        position: 'absolute',
-        bottom: '2.5rem',
-        left: '50%',
-        transform: 'translateX(-50%)',
+        marginTop: '3.5rem',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

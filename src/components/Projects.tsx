@@ -127,9 +127,9 @@ export default function Projects() {
         </div>
 
         {/* Project cards grid */}
-        <div style={{
+        <div className="project-grid" style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(480px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 480px), 1fr))',
           gap: '1.5rem',
         }}>
           {PROJECTS.map((p, i) => (
