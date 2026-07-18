@@ -12,7 +12,7 @@ const PROJECTS = [
     accent: 'rgba(16,185,129,0.15)',
     icon: '📱',
     status: 'Production',
-    year: '2024',
+    year: '2025',
     github: 'https://github.com/Okansyailendra/TabungGadget',
   },
   {
@@ -24,7 +24,7 @@ const PROJECTS = [
     accent: 'rgba(14,165,233,0.15)',
     icon: '🏥',
     status: 'Production',
-    year: '2024',
+    year: '2026',
     github: 'https://github.com',
   },
   {
@@ -36,7 +36,7 @@ const PROJECTS = [
     accent: 'rgba(139,92,246,0.15)',
     icon: '🏨',
     status: 'Production',
-    year: '2023',
+    year: '2025',
     github: 'https://github.com',
   },
   {
@@ -48,7 +48,7 @@ const PROJECTS = [
     accent: 'rgba(37,99,235,0.15)',
     icon: '🏗️',
     status: 'Production',
-    year: '2023',
+    year: '2026',
     github: 'https://github.com/Okansyailendra/ERPConstruction',
   },
 ]
