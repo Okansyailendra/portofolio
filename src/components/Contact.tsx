@@ -76,16 +76,36 @@ export default function Contact() {
 
   return (
     <section id="contact" style={{ position: 'relative', zIndex: 1, padding: 'clamp(5rem, 10vw, 8rem) 1.5rem' }}>
-      {/* Nebula orbs */}
+      {/* ═══════ UNIQUE SECTION BACKGROUND (AMBER/RED) ═══════ */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        background: 'linear-gradient(to bottom, rgba(5,5,26,0) 0%, rgba(245,158,11,0.03) 50%, rgba(5,5,26,0) 100%)',
+        zIndex: -1,
+        pointerEvents: 'none'
+      }} />
       <div style={{
         position: 'absolute',
         bottom: 0,
         left: '20%',
-        width: 600,
-        height: 300,
-        background: 'radial-gradient(ellipse, rgba(124,58,237,0.1) 0%, transparent 70%)',
+        width: 700,
+        height: 400,
+        background: 'radial-gradient(ellipse, rgba(245,158,11,0.1) 0%, transparent 70%)',
+        filter: 'blur(70px)',
+        pointerEvents: 'none',
+        animation: 'glowPulse 12s ease-in-out infinite',
+      }} />
+      <div style={{
+        position: 'absolute',
+        top: '10%',
+        right: '-5%',
+        width: 500,
+        height: 500,
+        borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(220,38,38,0.08) 0%, transparent 70%)',
         filter: 'blur(60px)',
         pointerEvents: 'none',
+        animation: 'nebulaPulse 14s ease-in-out 4s infinite',
       }} />
 
       <div style={{ maxWidth: '700px', margin: '0 auto' }}>

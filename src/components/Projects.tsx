@@ -1,5 +1,7 @@
 import { useRef, useEffect } from 'react'
 
+import { GitHubCalendar } from 'react-github-calendar'
+
 const PROJECTS = [
   {
     title: 'TabungGadget',
@@ -80,16 +82,37 @@ export default function Projects() {
 
   return (
     <section ref={sectionRef} id="projects" style={{ position: 'relative', zIndex: 1, padding: 'clamp(5rem, 10vw, 8rem) 1.5rem' }}>
+      {/* ═══════ UNIQUE SECTION BACKGROUND (EMERALD/TEAL) ═══════ */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        background: 'linear-gradient(to bottom, rgba(5,5,26,0) 0%, rgba(16,185,129,0.03) 50%, rgba(5,5,26,0) 100%)',
+        zIndex: -1,
+        pointerEvents: 'none'
+      }} />
       <div style={{
         position: 'absolute',
         bottom: '10%',
         right: '-5%',
-        width: 400,
-        height: 400,
+        width: 600,
+        height: 600,
         borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(124,58,237,0.1) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(16,185,129,0.1) 0%, transparent 70%)',
         filter: 'blur(60px)',
         pointerEvents: 'none',
+        animation: 'nebulaPulse 15s ease-in-out infinite',
+      }} />
+      <div style={{
+        position: 'absolute',
+        top: '15%',
+        left: '-5%',
+        width: 500,
+        height: 500,
+        borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(20,184,166,0.08) 0%, transparent 70%)',
+        filter: 'blur(60px)',
+        pointerEvents: 'none',
+        animation: 'nebulaPulse 13s ease-in-out 3s infinite',
       }} />
 
       <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
@@ -271,6 +294,58 @@ export default function Projects() {
           ))}
         </div>
       </div>
+
+      {/* GITHUB CONTRIBUTIONS */}
+      <div style={{ maxWidth: '900px', margin: '6rem auto 0' }}>
+        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+          <span style={{
+            fontFamily: 'Orbitron, sans-serif',
+            fontSize: '0.75rem',
+            color: '#10b981', // emerald color matching github
+            letterSpacing: '0.2em',
+            textTransform: 'uppercase',
+            fontWeight: 600,
+          }}>
+            ◈ Open Source
+          </span>
+          <h3 style={{
+            fontFamily: 'Orbitron, sans-serif',
+            fontSize: 'clamp(1.5rem, 3vw, 2.2rem)',
+            fontWeight: 700,
+            color: '#ffffff',
+            marginTop: '0.5rem',
+            marginBottom: '0.5rem',
+          }}>
+            GitHub <span style={{ color: '#10b981' }}>Contributions</span>
+          </h3>
+          <p style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', color: '#94a3b8', fontSize: '0.9rem' }}>
+            Aktivitas pengkodean saya di GitHub selama satu tahun terakhir.
+          </p>
+        </div>
+        
+        <div style={{
+          background: 'rgba(5,5,26,0.5)',
+          border: '1px solid rgba(255,255,255,0.1)',
+          borderRadius: '24px',
+          padding: '2rem',
+          display: 'flex',
+          justifyContent: 'center',
+          boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
+          backdropFilter: 'blur(10px)',
+          overflowX: 'auto'
+        }}>
+          <GitHubCalendar 
+            username="Okansyailendra" 
+            colorScheme="dark"
+            theme={{
+              light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
+              dark: ['rgba(255,255,255,0.05)', '#064e3b', '#047857', '#10b981', '#34d399']
+            }}
+          />
+        </div>
+      </div>
+
+
 
       <style>{`
         @media (max-width: 640px) {

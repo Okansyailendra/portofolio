@@ -47,6 +47,35 @@ body {
   border-radius: 2px;
 }
 
+/* ============================================
+   EXISTING ANIMATIONS (preserved & enhanced)
+   ============================================ */
+
+/* Astronaut zero-gravity float — combines vertical float, gentle rotation, and slight scale */
+@keyframes astronautFloat {
+  0% {
+    transform: translateY(0px) rotate(-3deg) scale(1);
+  }
+  15% {
+    transform: translateY(-14px) rotate(0deg) scale(1.01);
+  }
+  30% {
+    transform: translateY(-22px) rotate(3deg) scale(1);
+  }
+  50% {
+    transform: translateY(-12px) rotate(5deg) scale(0.99);
+  }
+  65% {
+    transform: translateY(-25px) rotate(2deg) scale(1.01);
+  }
+  80% {
+    transform: translateY(-8px) rotate(-2deg) scale(1);
+  }
+  100% {
+    transform: translateY(0px) rotate(-3deg) scale(1);
+  }
+}
+
 @keyframes float {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
   33% { transform: translateY(-18px) rotate(2deg); }
@@ -79,16 +108,6 @@ body {
   50% { opacity: 0; }
 }
 
-@keyframes rocketLaunch {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(-100px) rotate(-10deg); opacity: 0; }
-}
-
-@keyframes starsAppear {
-  0% { opacity: 0; transform: scale(0.5); }
-  100% { opacity: 1; transform: scale(1); }
-}
-
 @keyframes orbitSpin {
   from { transform: rotate(0deg) translateX(50px) rotate(0deg); }
   to { transform: rotate(360deg) translateX(50px) rotate(-360deg); }
@@ -98,6 +117,166 @@ body {
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
 }
+
+/* ============================================
+   NEW SPACE THEME ANIMATIONS
+   ============================================ */
+
+/* Komet jatuh diagonal — ekor panjang meluncur */
+@keyframes cometFall {
+  0% {
+    transform: translate(0, 0) rotate(-35deg);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-1800px, 1200px) rotate(-35deg);
+    opacity: 0;
+  }
+}
+
+/* Planet orbit berputar di satu titik */
+@keyframes planetOrbit {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Planet mengambang perlahan naik turun */
+@keyframes planetFloat {
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50% { transform: translateY(-25px) scale(1.02); }
+}
+
+/* Cincin planet berputar */
+@keyframes ringRotate {
+  0% { transform: rotateX(75deg) rotateZ(0deg); }
+  100% { transform: rotateX(75deg) rotateZ(360deg); }
+}
+
+/* Ring idle tilt */
+@keyframes ringTilt {
+  0%, 100% { transform: rotateX(72deg) rotateZ(0deg); }
+  25% { transform: rotateX(68deg) rotateZ(3deg); }
+  50% { transform: rotateX(75deg) rotateZ(-2deg); }
+  75% { transform: rotateX(70deg) rotateZ(4deg); }
+}
+
+/* Efek atmosfer bercahaya */
+@keyframes atmosphereGlow {
+  0%, 100% {
+    box-shadow: 0 0 40px rgba(124, 58, 237, 0.4), 0 0 80px rgba(6, 182, 212, 0.15), inset 0 0 30px rgba(124, 58, 237, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 60px rgba(124, 58, 237, 0.6), 0 0 120px rgba(6, 182, 212, 0.25), inset 0 0 50px rgba(124, 58, 237, 0.3);
+  }
+}
+
+/* Scanline hologram */
+@keyframes hologramScan {
+  0% {
+    background-position: 0 -100%;
+  }
+  100% {
+    background-position: 0 200%;
+  }
+}
+
+/* Aurora text gradient bergerak */
+@keyframes auroraText {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Bulan mengorbit planet */
+@keyframes moonOrbit {
+  0% { transform: rotate(0deg) translateX(170px) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(170px) rotate(-360deg); }
+}
+
+/* Asteroid melayang pelan */
+@keyframes asteroidDrift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(15px, -10px) rotate(90deg); }
+  50% { transform: translate(-5px, -20px) rotate(180deg); }
+  75% { transform: translate(-15px, -5px) rotate(270deg); }
+}
+
+/* Pulse glow untuk planet */
+@keyframes planetGlow {
+  0%, 100% {
+    filter: drop-shadow(0 0 15px rgba(124, 58, 237, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 35px rgba(124, 58, 237, 0.7)) drop-shadow(0 0 60px rgba(6, 182, 212, 0.3));
+  }
+}
+
+/* Twinkle star */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* Comet trail glow animation */
+@keyframes cometGlow {
+  0%, 100% { opacity: 0.6; filter: blur(0px); }
+  50% { opacity: 1; filter: blur(1px); }
+}
+
+/* Rotate gentle for planets */
+@keyframes gentleSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Scale pulse */
+@keyframes scalePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
+/* Cosmic fade in */
+@keyframes cosmicFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(60px) scale(0.9);
+    filter: blur(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Star burst */
+@keyframes starBurst {
+  0% { transform: scale(0) rotate(0deg); opacity: 0; }
+  50% { transform: scale(1.3) rotate(180deg); opacity: 1; }
+  100% { transform: scale(1) rotate(360deg); opacity: 0.8; }
+}
+
+/* Nebula pulse */
+@keyframes nebulaPulse {
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.1); }
+}
+
+/* Orbit path animation */
+@keyframes orbitPath {
+  0% { transform: rotate(0deg) translateX(var(--orbit-radius, 160px)) rotate(0deg); }
+  100% { transform: rotate(360deg) translateX(var(--orbit-radius, 160px)) rotate(-360deg); }
+}
+
+/* ============================================
+   EXISTING UTILITY CLASSES (preserved)
+   ============================================ */
 
 .animate-float {
   animation: float 6s ease-in-out infinite;
@@ -181,6 +360,7 @@ body {
   animation: shimmer 3s linear infinite;
 }
 
+/* Glitch effects */
 @keyframes glitch-anim-1 {
   0% { clip-path: inset(20% 0 80% 0); transform: translate(-2px, 2px); }
   20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, -2px); }
@@ -237,6 +417,7 @@ body {
   animation: glitch-anim-2 0.3s infinite linear alternate-reverse;
 }
 
+/* Meteor / shooting star (preserved + enhanced) */
 @keyframes meteor {
   0% { transform: rotate(215deg) translateX(0); opacity: 1; }
   70% { opacity: 1; }
@@ -262,4 +443,394 @@ body {
   box-shadow: 0 0 15px 3px #06b6d4;
   right: 0;
   top: -2px;
+}
+
+/* ============================================
+   NEW SPACE UTILITY CLASSES
+   ============================================ */
+
+/* === COMET === */
+.comet {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.comet-trail {
+  width: 200px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.8), #ffffff);
+  border-radius: 100px;
+  position: relative;
+  animation: cometFall var(--comet-duration, 6s) linear var(--comet-delay, 0s) infinite;
+  filter: drop-shadow(0 0 6px rgba(167, 139, 250, 0.8));
+}
+
+.comet-trail::before {
+  content: '';
+  position: absolute;
+  right: -3px;
+  top: -4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 30%, rgba(167, 139, 250, 0.8) 70%, transparent);
+  box-shadow: 0 0 20px 5px rgba(167, 139, 250, 0.6), 0 0 40px 10px rgba(6, 182, 212, 0.3);
+}
+
+.comet-trail::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -8px;
+  width: 100px;
+  height: 18px;
+  background: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.1), rgba(6, 182, 212, 0.05));
+  filter: blur(4px);
+  border-radius: 100px;
+}
+
+/* === PLANET PHOTO (Saturnus style) === */
+.planet-photo-container {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  perspective: 800px;
+  cursor: pointer;
+}
+
+.planet-photo-body {
+  position: absolute;
+  inset: 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.04);
+  border: 2px solid rgba(124, 58, 237, 0.5);
+  animation: atmosphereGlow 4s ease-in-out infinite, planetFloat 8s ease-in-out infinite;
+  z-index: 3;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.planet-photo-container:hover .planet-photo-body {
+  border-color: rgba(6, 182, 212, 0.8);
+  transform: scale(1.05);
+}
+
+.planet-photo-body img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.planet-photo-container:hover .planet-photo-body img {
+  transform: scale(1.1);
+  filter: brightness(1.1);
+}
+
+/* Planet ring — Saturnus style */
+.planet-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 340px;
+  height: 340px;
+  margin-top: -170px;
+  margin-left: -170px;
+  border-radius: 50%;
+  border: 3px solid transparent;
+  border-top-color: rgba(167, 139, 250, 0.5);
+  border-bottom-color: rgba(6, 182, 212, 0.3);
+  animation: ringTilt 12s ease-in-out infinite;
+  z-index: 2;
+  transition: all 0.5s ease;
+}
+
+.planet-ring::before {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  border: 1px solid rgba(167, 139, 250, 0.15);
+  border-top-color: rgba(167, 139, 250, 0.25);
+}
+
+.planet-ring::after {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  border: 2px solid rgba(6, 182, 212, 0.2);
+  border-bottom-color: rgba(6, 182, 212, 0.35);
+}
+
+.planet-photo-container:hover .planet-ring {
+  animation: ringRotate 4s linear infinite;
+  border-top-color: rgba(167, 139, 250, 0.8);
+  border-bottom-color: rgba(6, 182, 212, 0.6);
+}
+
+/* Orbiting moon */
+.planet-moon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  z-index: 5;
+  animation: moonOrbit 10s linear infinite;
+}
+
+.planet-moon-body {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #e2e8f0, #64748b);
+  box-shadow: 0 0 12px rgba(226, 232, 240, 0.5), inset -3px -3px 6px rgba(0, 0, 0, 0.3);
+  position: relative;
+  left: -9px;
+  top: -9px;
+  animation: scalePulse 3s ease-in-out infinite;
+}
+
+.planet-moon-body::after {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(148, 163, 184, 0.5);
+  top: 5px;
+  left: 4px;
+}
+
+/* Second moon (smaller, farther) */
+.planet-moon-2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  z-index: 4;
+  --orbit-radius: 190px;
+  animation: orbitPath 16s linear infinite reverse;
+}
+
+.planet-moon-2 .planet-moon-body {
+  width: 10px;
+  height: 10px;
+  left: -5px;
+  top: -5px;
+  background: radial-gradient(circle at 35% 35%, #a78bfa, #4c1d95);
+  box-shadow: 0 0 8px rgba(167, 139, 250, 0.6);
+}
+
+/* === HOLOGRAM CARD === */
+.hologram-card {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(124, 58, 237, 0.08) 0%,
+    rgba(6, 182, 212, 0.04) 50%,
+    rgba(236, 72, 153, 0.06) 100%
+  );
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  border-radius: 16px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hologram-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(124, 58, 237, 0.03) 2px,
+    rgba(124, 58, 237, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hologram-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(124, 58, 237, 0.08) 50%,
+    transparent 100%
+  );
+  background-size: 100% 200%;
+  animation: hologramScan 4s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hologram-card:hover {
+  border-color: rgba(124, 58, 237, 0.5);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow:
+    0 0 30px rgba(124, 58, 237, 0.3),
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    inset 0 0 20px rgba(124, 58, 237, 0.1);
+}
+
+/* === AURORA TEXT === */
+.aurora-text {
+  background: linear-gradient(
+    270deg,
+    #a78bfa,
+    #06b6d4,
+    #ec4899,
+    #7c3aed,
+    #06b6d4,
+    #a78bfa
+  );
+  background-size: 400% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: auroraText 8s ease infinite;
+}
+
+/* === COSMIC TEXT GLOW === */
+.cosmic-glow-text {
+  color: #ffffff;
+  text-shadow:
+    0 0 10px rgba(167, 139, 250, 0.6),
+    0 0 30px rgba(124, 58, 237, 0.4),
+    0 0 60px rgba(6, 182, 212, 0.2);
+  animation: cosmicFadeIn 1s ease both;
+}
+
+/* === DECORATIVE SVG PLANET === */
+.deco-planet {
+  position: absolute;
+  pointer-events: none;
+  animation: planetFloat var(--planet-duration, 10s) ease-in-out infinite;
+  z-index: 0;
+  filter: drop-shadow(0 0 20px var(--planet-glow, rgba(124, 58, 237, 0.3)));
+}
+
+/* === ASTEROID === */
+.asteroid {
+  position: absolute;
+  pointer-events: none;
+  animation: asteroidDrift var(--asteroid-duration, 20s) ease-in-out infinite;
+}
+
+.asteroid-body {
+  width: var(--asteroid-size, 8px);
+  height: var(--asteroid-size, 8px);
+  background: radial-gradient(circle at 30% 30%, #94a3b8, #334155);
+  border-radius: 40% 60% 50% 70%;
+  box-shadow: 0 0 8px rgba(148, 163, 184, 0.3);
+}
+
+/* === SPACE SECTION BADGE === */
+.space-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  border-radius: 100px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  animation: cosmicFadeIn 0.8s ease both;
+}
+
+/* === COSMIC BUTTON === */
+.cosmic-btn-primary {
+  position: relative;
+  display: inline-block;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  padding: 14px 32px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #7c3aed, #06b6d4);
+  color: #ffffff;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 30px rgba(124, 58, 237, 0.4), 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.cosmic-btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #7c3aed, #06b6d4, #ec4899);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.cosmic-btn-primary:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 0 50px rgba(124, 58, 237, 0.6), 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.cosmic-btn-primary:hover::before {
+  opacity: 1;
+}
+
+.cosmic-btn-secondary {
+  display: inline-block;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  padding: 14px 32px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  color: #a78bfa;
+  text-decoration: none;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cosmic-btn-secondary:hover {
+  background: rgba(124, 58, 237, 0.15);
+  border-color: rgba(124, 58, 237, 0.6);
+  color: #e2e8f0;
+  transform: translateY(-3px);
+  box-shadow: 0 0 30px rgba(124, 58, 237, 0.2);
+}
+
+/* === COMET UNDERLINE for highlight text === */
+.comet-underline {
+  position: relative;
+  display: inline;
+}
+
+.comet-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(167, 139, 250, 0.8), rgba(6, 182, 212, 0.8), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+  border-radius: 2px;
 }

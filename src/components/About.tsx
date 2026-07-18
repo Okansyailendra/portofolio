@@ -1,56 +1,373 @@
 import { useScrollReveal } from '../hooks/useScrollReveal'
 
+/* ── Astronaut Suit SVG — Dynamic Zero-Gravity Floating Pose ── */
+const AstronautPhoto = () => (
+  <div style={{
+    position: 'relative',
+    width: 380,
+    height: 460,
+  }}>
+    {/* Outer glow */}
+    <div style={{
+      position: 'absolute',
+      top: '5%',
+      left: '5%',
+      width: '90%',
+      height: '90%',
+      borderRadius: '50%',
+      background: 'radial-gradient(circle, rgba(124,58,237,0.2) 0%, rgba(6,182,212,0.08) 50%, transparent 80%)',
+      filter: 'blur(35px)',
+      animation: 'nebulaPulse 5s ease-in-out infinite',
+      pointerEvents: 'none',
+    }} />
+
+    {/* The whole astronaut floats + tilts */}
+    <div style={{
+      animation: 'astronautFloat 8s ease-in-out infinite',
+      transformOrigin: 'center center',
+      position: 'relative',
+      zIndex: 2,
+    }}>
+      <svg width="380" height="460" viewBox="0 0 380 460" style={{ overflow: 'visible' }}>
+        <defs>
+          <clipPath id="visorClip">
+            <ellipse cx="190" cy="108" rx="58" ry="62" />
+          </clipPath>
+          <linearGradient id="suitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#e2e8f0" />
+            <stop offset="50%" stopColor="#cbd5e1" />
+            <stop offset="100%" stopColor="#94a3b8" />
+          </linearGradient>
+          <linearGradient id="helmetGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#f1f5f9" />
+            <stop offset="100%" stopColor="#94a3b8" />
+          </linearGradient>
+          <linearGradient id="visorGlass" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="rgba(6,182,212,0.3)" />
+            <stop offset="50%" stopColor="rgba(124,58,237,0.15)" />
+            <stop offset="100%" stopColor="rgba(6,182,212,0.2)" />
+          </linearGradient>
+          <linearGradient id="backpackGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#94a3b8" />
+            <stop offset="100%" stopColor="#64748b" />
+          </linearGradient>
+          <filter id="helmetGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          <filter id="visorReflect">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="2" />
+          </filter>
+          <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="shadow" />
+            <feOffset dx="2" dy="4" />
+            <feMerge>
+              <feMergeNode />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        {/* Entire body group — tilted for dynamic pose */}
+        <g transform="rotate(-8 190 230)">
+
+          {/* ═══ BACKPACK (behind body) ═══ */}
+          <g transform="translate(190, 240)">
+            <rect x="-55" y="-60" width="42" height="100" rx="12" fill="url(#backpackGrad)" opacity="0.8" />
+            <rect x="13" y="-60" width="42" height="100" rx="12" fill="url(#backpackGrad)" opacity="0.8" />
+            {/* Backpack details */}
+            <rect x="-50" y="-30" width="10" height="3" rx="1.5" fill="rgba(6,182,212,0.6)" />
+            <rect x="-50" y="-22" width="7" height="3" rx="1.5" fill="rgba(236,72,153,0.5)" />
+            <rect x="42" y="-30" width="10" height="3" rx="1.5" fill="rgba(6,182,212,0.6)" />
+            <rect x="42" y="-22" width="7" height="3" rx="1.5" fill="rgba(236,72,153,0.5)" />
+            {/* Antenna */}
+            <line x1="35" y1="-60" x2="45" y2="-85" stroke="#94a3b8" strokeWidth="2" />
+            <circle cx="45" cy="-88" r="4" fill="#ec4899" opacity="0.8">
+              <animate attributeName="opacity" values="0.3;1;0.3" dur="1.5s" repeatCount="indefinite" />
+            </circle>
+          </g>
+
+          {/* ═══ BODY / TORSO ═══ */}
+          <path d="M145,185 Q142,168 158,162 L222,162 Q238,168 235,185 L240,305 Q242,330 220,338 L160,338 Q138,330 140,305 Z"
+            fill="url(#suitGrad)" stroke="rgba(148,163,184,0.4)" strokeWidth="1" />
+
+          {/* Chest panel */}
+          <rect x="165" y="178" width="50" height="60" rx="8" fill="rgba(15,23,42,0.6)" stroke="rgba(124,58,237,0.3)" strokeWidth="1" />
+          <circle cx="177" cy="193" r="3" fill="#4ade80" opacity="0.8">
+            <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite" />
+          </circle>
+          <circle cx="190" cy="193" r="3" fill="#06b6d4" opacity="0.8">
+            <animate attributeName="opacity" values="0.6;1;0.6" dur="1.5s" repeatCount="indefinite" />
+          </circle>
+          <circle cx="203" cy="193" r="3" fill="#ec4899" opacity="0.8">
+            <animate attributeName="opacity" values="0.5;1;0.5" dur="2.5s" repeatCount="indefinite" />
+          </circle>
+          <line x1="170" y1="205" x2="210" y2="205" stroke="rgba(6,182,212,0.3)" strokeWidth="0.8" />
+          <line x1="170" y1="213" x2="205" y2="213" stroke="rgba(6,182,212,0.2)" strokeWidth="0.8" />
+          <line x1="170" y1="221" x2="200" y2="221" stroke="rgba(6,182,212,0.15)" strokeWidth="0.8" />
+          <rect x="170" y="228" width="40" height="6" rx="2" fill="rgba(124,58,237,0.2)" stroke="rgba(124,58,237,0.3)" strokeWidth="0.5" />
+
+          {/* Belt — slightly curved */}
+          <path d="M142,282 Q190,276 238,282" fill="none" stroke="#64748b" strokeWidth="12" strokeLinecap="round" />
+          <rect x="178" y="275" width="24" height="14" rx="3" fill="#475569" stroke="rgba(167,139,250,0.4)" strokeWidth="0.8" />
+
+          {/* ═══ LEFT ARM — Raised up waving ═══ */}
+          <g>
+            <animateTransform attributeName="transform" type="rotate" values="-3,145,185;5,145,185;-3,145,185" dur="5s" repeatCount="indefinite" />
+            <path d="M148,188 Q115,175 90,140 Q72,112 55,90"
+              fill="none" stroke="#cbd5e1" strokeWidth="30" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M148,188 Q115,175 90,140 Q72,112 55,90"
+              fill="none" stroke="rgba(148,163,184,0.25)" strokeWidth="31" strokeLinecap="round" strokeLinejoin="round" />
+            {/* Glove */}
+            <ellipse cx="52" cy="82" rx="17" ry="15" fill="#94a3b8" stroke="rgba(100,116,139,0.4)" strokeWidth="1" transform="rotate(-30 52 82)" />
+            {/* Arm stripe */}
+            <rect x="82" y="128" width="22" height="5" rx="2" fill="rgba(236,72,153,0.4)" transform="rotate(-50 93 130)" />
+            {/* Shoulder patch */}
+            <circle cx="135" cy="182" r="11" fill="rgba(15,23,42,0.8)" stroke="rgba(124,58,237,0.5)" strokeWidth="0.8" />
+            <text x="135" y="185" textAnchor="middle" fontSize="5.5" fill="#a78bfa" fontFamily="Orbitron, sans-serif" fontWeight="700">KD</text>
+          </g>
+
+          {/* ═══ RIGHT ARM — Relaxed outward ═══ */}
+          <g>
+            <animateTransform attributeName="transform" type="rotate" values="2,235,185;-4,235,185;2,235,185" dur="6s" repeatCount="indefinite" />
+            <path d="M232,188 Q262,200 280,235 Q292,265 298,295 Q300,315 290,330"
+              fill="none" stroke="#cbd5e1" strokeWidth="30" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M232,188 Q262,200 280,235 Q292,265 298,295 Q300,315 290,330"
+              fill="none" stroke="rgba(148,163,184,0.25)" strokeWidth="31" strokeLinecap="round" strokeLinejoin="round" />
+            {/* Glove */}
+            <ellipse cx="287" cy="335" rx="17" ry="14" fill="#94a3b8" stroke="rgba(100,116,139,0.4)" strokeWidth="1" transform="rotate(15 287 335)" />
+            {/* Arm stripe */}
+            <rect x="275" y="252" width="22" height="5" rx="2" fill="rgba(6,182,212,0.4)" transform="rotate(20 286 255)" />
+          </g>
+
+          {/* ═══ LEFT LEG — Bent & floating ═══ */}
+          <g>
+            <animateTransform attributeName="transform" type="rotate" values="2,160,335;-3,160,335;2,160,335" dur="7s" repeatCount="indefinite" />
+            <path d="M160,335 Q148,365 135,395 Q128,415 138,430"
+              fill="none" stroke="#cbd5e1" strokeWidth="28" strokeLinecap="round" />
+            <path d="M160,335 Q148,365 135,395 Q128,415 138,430"
+              fill="none" stroke="rgba(148,163,184,0.2)" strokeWidth="29" strokeLinecap="round" />
+            {/* Boot */}
+            <ellipse cx="140" cy="435" rx="20" ry="12" fill="#64748b" stroke="rgba(100,116,139,0.4)" strokeWidth="0.8" transform="rotate(-10 140 435)" />
+          </g>
+
+          {/* ═══ RIGHT LEG — Extended outward ═══ */}
+          <g>
+            <animateTransform attributeName="transform" type="rotate" values="-2,220,335;4,220,335;-2,220,335" dur="6.5s" repeatCount="indefinite" />
+            <path d="M220,335 Q235,370 250,400 Q262,425 272,440"
+              fill="none" stroke="#cbd5e1" strokeWidth="28" strokeLinecap="round" />
+            <path d="M220,335 Q235,370 250,400 Q262,425 272,440"
+              fill="none" stroke="rgba(148,163,184,0.2)" strokeWidth="29" strokeLinecap="round" />
+            {/* Boot */}
+            <ellipse cx="275" cy="445" rx="20" ry="12" fill="#64748b" stroke="rgba(100,116,139,0.4)" strokeWidth="0.8" transform="rotate(20 275 445)" />
+          </g>
+
+          {/* ═══ HELMET ═══ */}
+          <g>
+            <animateTransform attributeName="transform" type="rotate" values="-2,190,100;3,190,100;-2,190,100" dur="4s" repeatCount="indefinite" />
+            {/* Helmet outer shell */}
+            <ellipse cx="190" cy="100" rx="78" ry="82" fill="url(#helmetGrad)" stroke="rgba(167,139,250,0.4)" strokeWidth="1.5" />
+            {/* Helmet inner dark */}
+            <ellipse cx="190" cy="103" rx="68" ry="72" fill="#0f172a" />
+            {/* Visor opening */}
+            <ellipse cx="190" cy="108" rx="60" ry="64" fill="#0a0a1a" />
+            {/* Photo face */}
+            <image
+              href="/foto.png"
+              x="130"
+              y="44"
+              width="120"
+              height="128"
+              clipPath="url(#visorClip)"
+              preserveAspectRatio="xMidYMid slice"
+            />
+            {/* Visor glass overlay */}
+            <ellipse cx="190" cy="108" rx="60" ry="64" fill="url(#visorGlass)" opacity="0.25" />
+            {/* Visor reflections */}
+            <ellipse cx="168" cy="82" rx="18" ry="26" fill="rgba(255,255,255,0.07)" transform="rotate(-15 168 82)" filter="url(#visorReflect)" />
+            <ellipse cx="215" cy="125" rx="10" ry="16" fill="rgba(6,182,212,0.05)" transform="rotate(10 215 125)" filter="url(#visorReflect)" />
+            {/* Visor rim */}
+            <ellipse cx="190" cy="108" rx="60" ry="64" fill="none" stroke="rgba(167,139,250,0.5)" strokeWidth="2" />
+            <ellipse cx="190" cy="108" rx="63" ry="67" fill="none" stroke="rgba(124,58,237,0.15)" strokeWidth="1" />
+            {/* Helmet top accent */}
+            <path d="M140,42 Q190,18 240,42" fill="none" stroke="rgba(6,182,212,0.4)" strokeWidth="1.5" />
+            {/* Ear pieces */}
+            <ellipse cx="115" cy="103" rx="11" ry="16" fill="#94a3b8" stroke="rgba(100,116,139,0.4)" strokeWidth="0.8" />
+            <ellipse cx="265" cy="103" rx="11" ry="16" fill="#94a3b8" stroke="rgba(100,116,139,0.4)" strokeWidth="0.8" />
+            <circle cx="115" cy="101" r="3.5" fill="rgba(6,182,212,0.4)" />
+            <circle cx="265" cy="101" r="3.5" fill="rgba(124,58,237,0.4)" />
+            {/* Helmet glow */}
+            <ellipse cx="190" cy="100" rx="82" ry="86" fill="none" stroke="rgba(124,58,237,0.12)" strokeWidth="1" filter="url(#helmetGlow)">
+              <animate attributeName="stroke-opacity" values="0.08;0.25;0.08" dur="3s" repeatCount="indefinite" />
+            </ellipse>
+          </g>
+
+          {/* Neck connector */}
+          <path d="M155,175 Q190,168 225,175" fill="none" stroke="#94a3b8" strokeWidth="14" strokeLinecap="round" />
+
+        </g>
+
+        {/* ═══ TETHER CABLE — floating behind ═══ */}
+        <path d="M145,260 Q110,290 90,310 Q60,345 80,370 Q100,395 70,420" fill="none" stroke="rgba(148,163,184,0.2)" strokeWidth="3" strokeLinecap="round" strokeDasharray="6,4">
+          <animate attributeName="d" values="M145,260 Q110,290 90,310 Q60,345 80,370 Q100,395 70,420;M145,265 Q115,295 95,320 Q65,350 85,380 Q105,400 75,430;M145,260 Q110,290 90,310 Q60,345 80,370 Q100,395 70,420" dur="6s" repeatCount="indefinite" />
+        </path>
+      </svg>
+    </div>
+
+    {/* Floating particles around astronaut */}
+    {[
+      { top: '3%', left: '-2%', size: 4, color: '#a78bfa', dur: '4s' },
+      { top: '20%', left: '95%', size: 3, color: '#06b6d4', dur: '5s' },
+      { top: '55%', left: '-6%', size: 5, color: '#ec4899', dur: '6s' },
+      { top: '78%', left: '90%', size: 3, color: '#a78bfa', dur: '4.5s' },
+      { top: '12%', left: '88%', size: 4, color: '#4ade80', dur: '5.5s' },
+      { top: '42%', left: '-1%', size: 3, color: '#06b6d4', dur: '3.5s' },
+      { top: '88%', left: '50%', size: 4, color: '#fbbf24', dur: '4s' },
+    ].map((p, i) => (
+      <div key={i} style={{
+        position: 'absolute',
+        top: p.top,
+        left: p.left,
+        width: p.size,
+        height: p.size,
+        borderRadius: '50%',
+        background: p.color,
+        boxShadow: `0 0 10px ${p.color}`,
+        animation: `twinkle ${p.dur} ease-in-out ${i * 0.5}s infinite`,
+        pointerEvents: 'none',
+        zIndex: 3,
+      }} />
+    ))}
+
+    {/* Star bursts */}
+    {[
+      { top: '0%', left: '15%', size: 11 },
+      { top: '65%', left: '96%', size: 9 },
+      { top: '90%', left: '8%', size: 7 },
+    ].map((s, i) => (
+      <svg key={i} width={s.size} height={s.size} viewBox="0 0 12 12" style={{
+        position: 'absolute',
+        top: s.top,
+        left: s.left,
+        animation: `twinkle ${3 + i}s ease-in-out ${i}s infinite`,
+        pointerEvents: 'none',
+        zIndex: 3,
+      }}>
+        <line x1="6" y1="0" x2="6" y2="12" stroke="#a78bfa" strokeWidth="0.8" />
+        <line x1="0" y1="6" x2="12" y2="6" stroke="#a78bfa" strokeWidth="0.8" />
+      </svg>
+    ))}
+  </div>
+)
+
 export default function About() {
   const ref1 = useScrollReveal()
   const ref2 = useScrollReveal()
   const ref3 = useScrollReveal()
 
+  /* Paragraph data with space icons & themed colors */
+  const paragraphs = [
+    {
+      icon: '🚀',
+      iconLabel: 'MISSION',
+      color: '#a78bfa',
+      borderColor: 'rgba(167,139,250,0.25)',
+      bgGradient: 'linear-gradient(135deg, rgba(124,58,237,0.08) 0%, rgba(6,182,212,0.03) 100%)',
+      content: (
+        <>
+          Saya adalah seorang <strong style={{ color: '#e2e8f0', textShadow: '0 0 12px rgba(226,232,240,0.3)' }}>Frontend & Game Developer</strong> yang bersemangat dalam menciptakan antarmuka yang dinamis dan dunia virtual yang imersif.
+          Perjalanan saya didorong oleh antusiasme untuk merancang permainan yang dapat dinikmati oleh banyak orang, serta membangun aplikasi interaktif yang benar-benar mempermudah penggunanya.
+        </>
+      ),
+    },
+    {
+      icon: '🛸',
+      iconLabel: 'EXPERTISE',
+      color: '#06b6d4',
+      borderColor: 'rgba(6,182,212,0.25)',
+      bgGradient: 'linear-gradient(135deg, rgba(6,182,212,0.08) 0%, rgba(124,58,237,0.03) 100%)',
+      content: (
+        <>
+          Dengan fokus pada <strong style={{ color: '#a78bfa', textShadow: '0 0 12px rgba(167,139,250,0.3)' }}>pengembangan antarmuka web, interaksi UI/UX, dan mekanika game</strong>.
+          Saya percaya bahwa kode yang baik bukan hanya tentang logika, melainkan seni visual.
+          Setiap baris ditulis dengan niat untuk menghadirkan pengalaman digital yang mulus, responsif, dan menyenangkan.
+        </>
+      ),
+    },
+    {
+      icon: '🛡️',
+      iconLabel: 'SECURITY',
+      color: '#ec4899',
+      borderColor: 'rgba(236,72,153,0.25)',
+      bgGradient: 'linear-gradient(135deg, rgba(236,72,153,0.08) 0%, rgba(124,58,237,0.03) 100%)',
+      content: (
+        <>
+          Selain pengembangan perangkat lunak, saya sangat antusias di bidang keamanan siber. Saya menjabat sebagai <strong style={{ color: '#06b6d4', textShadow: '0 0 12px rgba(6,182,212,0.3)' }}>Co-External Affairs di Komunitas Koalisi</strong>—sebuah wadah bagi para mahasiswa yang memiliki <em style={{ color: '#ec4899', fontStyle: 'normal', textShadow: '0 0 10px rgba(236,72,153,0.4)' }}>passion</em> di dunia <em style={{ color: '#ec4899', fontStyle: 'normal', textShadow: '0 0 10px rgba(236,72,153,0.4)' }}>Cyber Security</em> untuk saling belajar dan berkembang bersama.
+        </>
+      ),
+    },
+  ]
+
   return (
     <section id="about" style={{ position: 'relative', zIndex: 1, padding: 'clamp(5rem, 10vw, 8rem) 1.5rem' }}>
-      {/* Nebula orb */}
+      {/* ═══════ UNIQUE SECTION BACKGROUND (CYAN/BLUE) ═══════ */}
       <div style={{
         position: 'absolute',
-        top: '30%',
+        inset: 0,
+        background: 'linear-gradient(to bottom, rgba(5,5,26,0) 0%, rgba(6,182,212,0.03) 50%, rgba(5,5,26,0) 100%)',
+        zIndex: -1,
+        pointerEvents: 'none'
+      }} />
+      <div style={{
+        position: 'absolute',
+        top: '20%',
         right: '-5%',
+        width: 600,
+        height: 600,
+        borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(14,165,233,0.12) 0%, transparent 70%)',
+        filter: 'blur(60px)',
+        pointerEvents: 'none',
+        animation: 'nebulaPulse 14s ease-in-out infinite',
+      }} />
+      <div style={{
+        position: 'absolute',
+        bottom: '10%',
+        left: '-8%',
         width: 500,
         height: 500,
         borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(236,72,153,0.07) 0%, transparent 70%)',
-        filter: 'blur(60px)',
+        background: 'radial-gradient(circle, rgba(56,189,248,0.08) 0%, transparent 70%)',
+        filter: 'blur(50px)',
         pointerEvents: 'none',
+        animation: 'nebulaPulse 16s ease-in-out 5s infinite',
       }} />
 
-      {/* Meteors */}
-      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', overflow: 'hidden', pointerEvents: 'none', zIndex: 0 }}>
-        {[...Array(6)].map((_, i) => (
-          <div key={i} className="meteor" style={{
-            top: `${Math.random() * 50}%`,
-            left: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 5}s`,
-            animationDuration: `${3 + Math.random() * 4}s`
-          }} />
-        ))}
-      </div>
-
+      {/* ═══════ MAIN CONTENT ═══════ */}
       <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem', alignItems: 'center' }}>
-        {/* Text side */}
+
+        {/* ──── Text side ──── */}
         <div>
           <div ref={ref1} className="fade-in-up" style={{ marginBottom: '2rem' }}>
-            <span className="animate-glow-pulse" style={{
-              display: 'inline-block',
-              padding: '0.25rem 1rem',
-              borderRadius: '9999px',
+            {/* Section badge */}
+            <span className="space-badge" style={{
+              background: 'rgba(6,182,212,0.08)',
               border: '1px solid rgba(6,182,212,0.3)',
-              background: 'rgba(6,182,212,0.05)',
-              fontFamily: 'Orbitron, sans-serif',
-              fontSize: '0.75rem',
               color: '#06b6d4',
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-              fontWeight: 600,
+              marginBottom: '0.75rem',
             }}>
-              ◈ Tentang Saya
+              <svg width="14" height="14" viewBox="0 0 14 14" style={{ flexShrink: 0 }}>
+                <circle cx="7" cy="7" r="5" fill="none" stroke="#06b6d4" strokeWidth="1" />
+                <circle cx="7" cy="7" r="2" fill="#06b6d4" />
+                <ellipse cx="7" cy="7" rx="7" ry="3" fill="none" stroke="rgba(6,182,212,0.5)" strokeWidth="0.5" />
+              </svg>
+              Tentang Saya
             </span>
+
+            {/* Heading with aurora effect */}
             <h2 style={{
               fontFamily: 'Orbitron, sans-serif',
               fontSize: 'clamp(1.8rem, 4vw, 2.8rem)',
@@ -62,182 +379,209 @@ export default function About() {
               letterSpacing: '-0.01em',
             }}>
               Menjelajahi Batas{' '}
-              <span className="shimmer-text" style={{
+              <span className="aurora-text" style={{
                 fontFamily: 'Orbitron, sans-serif',
+                filter: 'drop-shadow(0 0 20px rgba(124,58,237,0.4))',
               }}>
                 Teknologi
               </span>
             </h2>
           </div>
 
-          <div ref={ref2} className="fade-in-up" style={{ transitionDelay: '0.15s' }}>
-            <p style={{
-              fontFamily: 'Plus Jakarta Sans, sans-serif',
-              fontSize: '1.05rem',
-              color: '#94a3b8',
-              lineHeight: 1.85,
-              marginBottom: '1.25rem',
-            }}>
-              Saya adalah seorang <strong style={{ color: '#e2e8f0' }}>Frontend & Game Developer</strong> yang bersemangat dalam menciptakan antarmuka yang dinamis dan dunia virtual yang imersif. 
-              Perjalanan saya didorong oleh antusiasme untuk merancang permainan yang dapat dinikmati oleh banyak orang, serta membangun aplikasi interaktif yang benar-benar mempermudah penggunanya.
-            </p>
-            <p style={{
-              fontFamily: 'Plus Jakarta Sans, sans-serif',
-              fontSize: '1.05rem',
-              color: '#94a3b8',
-              lineHeight: 1.85,
-              marginBottom: '2rem',
-            }}>
-              Dengan fokus pada <strong style={{ color: '#a78bfa' }}>pengembangan antarmuka web, interaksi UI/UX, dan mekanika game</strong>. 
-              Saya percaya bahwa kode yang baik bukan hanya tentang logika, melainkan seni visual. 
-              Setiap baris ditulis dengan niat untuk menghadirkan pengalaman digital yang mulus, responsif, dan menyenangkan.
-            </p>
-            <p style={{
-              fontFamily: 'Plus Jakarta Sans, sans-serif',
-              fontSize: '1.05rem',
-              color: '#94a3b8',
-              lineHeight: 1.85,
-              marginBottom: '2.5rem',
-            }}>
-              Selain pengembangan perangkat lunak, saya sangat antusias di bidang keamanan siber. Saya menjabat sebagai <strong style={{ color: '#06b6d4' }}>Co-External Affairs di Komunitas Koalisi</strong>—sebuah wadah bagi para mahasiswa yang memiliki *passion* di dunia <em style={{ color: '#ec4899', fontStyle: 'normal' }}>Cyber Security</em> untuk saling belajar dan berkembang bersama.
-            </p>
+          {/* ──── Paragraph Cards — Space Mission Logs ──── */}
+          <div ref={ref2} className="fade-in-up" style={{ transitionDelay: '0.15s', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            {paragraphs.map(({ icon, iconLabel, color, borderColor, bgGradient, content }, i) => (
+              <div key={i} style={{
+                position: 'relative',
+                background: bgGradient,
+                border: `1px solid ${borderColor}`,
+                borderRadius: '16px',
+                padding: '1.25rem 1.25rem 1.25rem 1rem',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                cursor: 'default',
+                overflow: 'hidden',
+                animation: `cosmicFadeIn 0.8s ease ${0.2 + i * 0.15}s both`,
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.borderColor = color
+                e.currentTarget.style.transform = 'translateX(8px)'
+                e.currentTarget.style.boxShadow = `0 0 25px ${color}20, 0 8px 25px rgba(0,0,0,0.3)`
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.borderColor = borderColor
+                e.currentTarget.style.transform = 'translateX(0)'
+                e.currentTarget.style.boxShadow = 'none'
+              }}
+              >
+                {/* Scanline overlay */}
+                <div style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(124,58,237,0.02) 2px, rgba(124,58,237,0.02) 4px)',
+                  pointerEvents: 'none',
+                  borderRadius: '16px',
+                }} />
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 w-full">
+                {/* Top left accent line */}
+                <div style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '3px',
+                  height: '100%',
+                  background: `linear-gradient(180deg, ${color}, transparent)`,
+                  borderRadius: '16px 0 0 16px',
+                  opacity: 0.6,
+                }} />
+
+                {/* Header row */}
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  marginBottom: '0.7rem',
+                  paddingLeft: '0.5rem',
+                }}>
+                  <span style={{
+                    fontSize: '1.2rem',
+                    animation: `float ${4 + i}s ease-in-out infinite`,
+                  }}>
+                    {icon}
+                  </span>
+                  <span style={{
+                    fontFamily: 'Orbitron, sans-serif',
+                    fontSize: '0.6rem',
+                    fontWeight: 700,
+                    letterSpacing: '0.2em',
+                    color: color,
+                    textShadow: `0 0 8px ${color}60`,
+                  }}>
+                    {iconLabel}
+                  </span>
+                  <div style={{
+                    flex: 1,
+                    height: '1px',
+                    background: `linear-gradient(90deg, ${color}40, transparent)`,
+                  }} />
+                  {/* Status dot */}
+                  <div style={{
+                    width: 6,
+                    height: 6,
+                    borderRadius: '50%',
+                    background: '#4ade80',
+                    boxShadow: '0 0 6px #4ade80',
+                    animation: 'scalePulse 2s ease-in-out infinite',
+                  }} />
+                </div>
+
+                {/* Content */}
+                <p style={{
+                  fontFamily: 'Plus Jakarta Sans, sans-serif',
+                  fontSize: '0.95rem',
+                  color: '#cbd5e1',
+                  lineHeight: 1.8,
+                  margin: 0,
+                  paddingLeft: '0.5rem',
+                  position: 'relative',
+                  zIndex: 1,
+                }}>
+                  {content}
+                </p>
+              </div>
+            ))}
+
+            {/* ──── Stats Cards — Hologram Spaceship Panel ──── */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', marginTop: '1.5rem' }}>
               {[
-                { label: '2', symbol: '+', title: 'Tahun', subtitle: 'Pengalaman', color: '#a78bfa', delay: '0s' },
-                { label: '10', symbol: '+', title: 'Proyek', subtitle: 'Selesai', color: '#06b6d4', delay: '0.2s' },
-                { label: '7', symbol: '+', title: 'Tech', subtitle: 'Stack', color: '#ec4899', delay: '0.4s' },
-              ].map(({ label, symbol, title, subtitle, color, delay }) => (
-                <div key={title} className="group relative rounded-2xl overflow-hidden bg-white/[0.03] border border-white/10 hover:border-white/30 backdrop-blur-md transition-all duration-500 hover:-translate-y-3 hover:shadow-[0_20px_40px_rgba(0,0,0,0.5)]" style={{ animation: `fadeInUp 0.8s ease ${delay} both` }}>
-                  
-                  {/* Glowing hover accent */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{ background: `radial-gradient(circle at 50% 0%, ${color}25 0%, transparent 70%)` }} />
-                  
-                  {/* Top colored accent line */}
-                  <div className="absolute top-0 left-0 w-full h-[2px] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" style={{ background: color, boxShadow: `0 0 15px ${color}` }} />
-
-                  <div className="p-6 sm:p-8 relative z-10 flex flex-col h-full justify-between min-h-[160px]">
-                    
-                    {/* Text content */}
-                    <div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="font-['Orbitron'] text-4xl font-bold text-white tracking-wider">{label}</span>
-                        <span className="font-['Orbitron'] text-3xl font-bold" style={{ color, filter: `drop-shadow(0 0 10px ${color}80)` }}>{symbol}</span>
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-['Plus_Jakarta_Sans'] text-xs font-bold tracking-[0.2em] uppercase text-slate-400 group-hover:text-slate-300 transition-colors">
-                          {title}
-                        </span>
-                        <span className="font-['Plus_Jakarta_Sans'] text-base font-semibold text-slate-200 group-hover:text-white transition-colors">
-                          {subtitle}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Watermark Number */}
-                    <div className="absolute bottom-[-10%] right-[-5%] font-['Orbitron'] text-8xl sm:text-9xl font-black italic opacity-[0.03] group-hover:opacity-[0.15] group-hover:scale-110 transition-all duration-700 pointer-events-none" style={{ WebkitTextStroke: `2px ${color}`, color: 'transparent' }}>
-                      {label}
-                    </div>
-
+                { label: '2', symbol: '+', title: 'TAHUN', subtitle: 'Pengalaman', color: '#a78bfa', icon: '🪐', delay: '0s' },
+                { label: '10', symbol: '+', title: 'PROYEK', subtitle: 'Selesai', color: '#06b6d4', icon: '🛸', delay: '0.15s' },
+                { label: '7', symbol: '+', title: 'TECH', subtitle: 'Stack', color: '#ec4899', icon: '☄️', delay: '0.3s' },
+              ].map(({ label, symbol, title, subtitle, color, icon, delay }) => (
+                <div key={title} className="hologram-card" style={{
+                  padding: '1.5rem 1rem',
+                  textAlign: 'center',
+                  animation: `cosmicFadeIn 0.8s ease ${delay} both`,
+                  cursor: 'default',
+                }}>
+                  {/* Planet/space icon */}
+                  <div style={{
+                    fontSize: '1.5rem',
+                    marginBottom: '0.5rem',
+                    animation: 'float 5s ease-in-out infinite',
+                    animationDelay: delay,
+                  }}>
+                    {icon}
                   </div>
+
+                  {/* Number display — digital counter style */}
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'baseline',
+                    justifyContent: 'center',
+                    gap: '2px',
+                    marginBottom: '0.4rem',
+                  }}>
+                    <span style={{
+                      fontFamily: 'Orbitron, sans-serif',
+                      fontSize: '2.2rem',
+                      fontWeight: 800,
+                      color: '#ffffff',
+                      letterSpacing: '0.05em',
+                      textShadow: `0 0 20px ${color}60, 0 0 40px ${color}30`,
+                    }}>
+                      {label}
+                    </span>
+                    <span style={{
+                      fontFamily: 'Orbitron, sans-serif',
+                      fontSize: '1.5rem',
+                      fontWeight: 700,
+                      color: color,
+                      filter: `drop-shadow(0 0 8px ${color})`,
+                    }}>
+                      {symbol}
+                    </span>
+                  </div>
+
+                  {/* Labels */}
+                  <div style={{
+                    fontFamily: 'Orbitron, sans-serif',
+                    fontSize: '0.6rem',
+                    fontWeight: 600,
+                    letterSpacing: '0.25em',
+                    color: '#64748b',
+                    marginBottom: '0.15rem',
+                  }}>
+                    {title}
+                  </div>
+                  <div style={{
+                    fontFamily: 'Plus Jakarta Sans, sans-serif',
+                    fontSize: '0.9rem',
+                    fontWeight: 600,
+                    color: '#e2e8f0',
+                  }}>
+                    {subtitle}
+                  </div>
+
+                  {/* Bottom accent line */}
+                  <div style={{
+                    width: '40px',
+                    height: '2px',
+                    background: `linear-gradient(90deg, transparent, ${color}, transparent)`,
+                    margin: '0.75rem auto 0',
+                    borderRadius: '2px',
+                    boxShadow: `0 0 8px ${color}50`,
+                  }} />
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Visual side — floating astronaut */}
+        {/* ──── Visual side — Astronaut Suit with Photo Face ──── */}
         <div ref={ref3} className="fade-in-up" style={{ transitionDelay: '0.25s', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <div className="group" style={{
-            position: 'relative',
-            width: 300,
-            height: 300,
-            perspective: '1000px',
-            cursor: 'pointer'
-          }}>
-            {/* 3D Interactive Container */}
-            <div style={{
-              width: '100%',
-              height: '100%',
-              position: 'relative',
-              transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-              transformStyle: 'preserve-3d'
-            }}
-            className="group-hover:scale-110 group-hover:rotate-x-12 group-hover:-rotate-y-12"
-            >
-              {/* Pulsing Orbit ring behind */}
-              <div style={{
-                position: 'absolute',
-                inset: -30,
-                border: '2px solid rgba(124,58,237,0.3)',
-                borderRadius: '50%',
-                animation: 'glowPulse 3s ease-in-out infinite, float 8s ease-in-out infinite',
-                boxShadow: '0 0 40px rgba(124,58,237,0.2)',
-                transform: 'translateZ(-20px)'
-              }} />
-              <div style={{
-                position: 'absolute',
-                inset: -15,
-                border: '1px dashed rgba(6,182,212,0.4)',
-                borderRadius: '50%',
-                animation: 'orbitSpin 20s linear infinite',
-                transform: 'translateZ(-10px)'
-              }} />
-
-              {/* Center glass card with photo */}
-              <div className="animate-float" style={{
-                position: 'absolute',
-                inset: 10,
-                borderRadius: '50%',
-                background: 'rgba(255,255,255,0.04)',
-                backdropFilter: 'blur(20px)',
-                border: '2px solid rgba(167,139,250,0.6)',
-                boxShadow: '0 0 60px rgba(124,58,237,0.5), inset 0 0 40px rgba(124,58,237,0.3)',
-                overflow: 'hidden', // Ensures the image respects the circular shape
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transform: 'translateZ(20px)',
-                transition: 'all 0.5s ease'
-              }}>
-                <img 
-                  src="/foto.png" 
-                  alt="Okan Syailendra Wahyudi" 
-                  style={{ 
-                    width: '100%', 
-                    height: '100%', 
-                    objectFit: 'cover',
-                    transition: 'transform 0.5s ease'
-                  }}
-                  className="group-hover:scale-110" 
-                />
-              </div>
-
-              {/* Orbiting glowing planets (instead of dots) */}
-              {[0, 72, 144, 216, 288].map((deg, i) => (
-                <div
-                  key={i}
-                  style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: `rotate(${deg}deg) translateX(160px) translateY(-50%) translateZ(30px)`,
-                  }}
-                >
-                  <div 
-                    style={{
-                      width: i % 2 === 0 ? 12 : 8,
-                      height: i % 2 === 0 ? 12 : 8,
-                      borderRadius: '50%',
-                      background: i % 2 === 0 ? '#7c3aed' : '#06b6d4',
-                      boxShadow: `0 0 20px 4px ${i % 2 === 0 ? '#7c3aed' : '#06b6d4'}`,
-                      animation: `float ${4 + i * 0.5}s ease-in-out ${i * 0.3}s infinite`,
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+          <AstronautPhoto />
         </div>
       </div>
     </section>
