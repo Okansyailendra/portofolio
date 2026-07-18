@@ -1,18 +1,34 @@
 import { useState, useRef } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import { Planet, FloatingIcon } from './SpaceDecorations'
 
 type Status = 'idle' | 'launching' | 'sent'
 
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
   const [status, setStatus] = useState<Status>('idle')
+  const [errors, setErrors] = useState({ name: false, email: false, message: false })
+  const [errorMsg, setErrorMsg] = useState('')
   const btnRef = useRef<HTMLButtonElement>(null)
   const ref1 = useScrollReveal()
   const ref2 = useScrollReveal()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!form.name || !form.email || !form.message) return
+    
+    const newErrors = {
+      name: !form.name.trim(),
+      email: !form.email.trim(),
+      message: !form.message.trim()
+    }
+    setErrors(newErrors)
+
+    if (newErrors.name || newErrors.email || newErrors.message) {
+      setErrorMsg('Peringatan: Koordinat transmisi tidak lengkap! Harap isi semua kolom.')
+      return
+    }
+
+    setErrorMsg('')
     setStatus('launching')
     
     try {
@@ -40,38 +56,6 @@ export default function Contact() {
       setStatus('idle')
       alert('Gagal mengirim pesan, silakan coba lagi nanti.')
     }
-  }
-
-  const inputStyle: React.CSSProperties = {
-    width: '100%',
-    background: 'rgba(255,255,255,0.04)',
-    border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: '10px',
-    padding: '13px 16px',
-    color: '#e2e8f0',
-    fontFamily: 'Plus Jakarta Sans, sans-serif',
-    fontSize: '0.9rem',
-    outline: 'none',
-    transition: 'border-color 0.2s, box-shadow 0.2s',
-  }
-
-  const labelStyle: React.CSSProperties = {
-    fontFamily: 'Plus Jakarta Sans, sans-serif',
-    fontSize: '0.8rem',
-    color: '#64748b',
-    fontWeight: 500,
-    letterSpacing: '0.04em',
-    display: 'block',
-    marginBottom: '6px',
-  }
-
-  const onFocus = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    e.target.style.borderColor = 'rgba(124,58,237,0.6)'
-    e.target.style.boxShadow = '0 0 0 3px rgba(124,58,237,0.1)'
-  }
-  const onBlur = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    e.target.style.borderColor = 'rgba(255,255,255,0.1)'
-    e.target.style.boxShadow = 'none'
   }
 
   return (
@@ -108,6 +92,11 @@ export default function Contact() {
         animation: 'nebulaPulse 14s ease-in-out 4s infinite',
       }} />
 
+      {/* SPACE DECORATIONS */}
+      <Planet top="5%" right="-10%" color="#f59e0b" size="180px" delay="3s" />
+      <FloatingIcon icon="☄️" top="80%" left="10%" size="4rem" animDur="9" rotation="45" opacity="0.4" />
+      <FloatingIcon icon="👽" top="15%" left="5%" size="2.5rem" animDur="16" rotation="-20" opacity="0.7" />
+
       <div style={{ maxWidth: '700px', margin: '0 auto' }}>
         {/* Header */}
         <div ref={ref1} className="fade-in-up" style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
@@ -119,7 +108,7 @@ export default function Contact() {
             textTransform: 'uppercase',
             fontWeight: 600,
           }}>
-            ◈ Kontak
+            ◈ Komunikasi
           </span>
           <h2 style={{
             fontFamily: 'Orbitron, sans-serif',
@@ -137,139 +126,120 @@ export default function Contact() {
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
             }}>
-              Sinyal ke Saya
+              Sinyal Transmisi
             </span>
           </h2>
-          <p style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', color: '#64748b', lineHeight: 1.75, fontSize: '0.95rem' }}>
+          <p style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', color: '#94a3b8', lineHeight: 1.75, fontSize: '0.95rem' }}>
             Ada proyek menarik? Ide yang ingin dieksplorasi? Atau sekadar ingin berkolaborasi? Pesan Anda akan tiba di stasiun luar angkasa saya dalam hitungan orbit.
           </p>
         </div>
 
         {/* Form */}
         <div ref={ref2} className="fade-in-up" style={{ transitionDelay: '0.15s' }}>
-          <div className="glass" style={{
-            borderRadius: '24px',
-            padding: 'clamp(1.5rem, 4vw, 2.5rem)',
-            position: 'relative',
-            overflow: 'hidden',
-          }}>
-            {/* Top accent */}
+          <div className="contact-container">
+            {/* Holographic grid overlay */}
             <div style={{
               position: 'absolute',
-              top: 0, left: 0, right: 0,
+              inset: 0,
+              backgroundImage: 'linear-gradient(rgba(6, 182, 212, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(6, 182, 212, 0.05) 1px, transparent 1px)',
+              backgroundSize: '20px 20px',
+              opacity: 0.5,
+              pointerEvents: 'none',
+            }} />
+            
+            {/* Top scanning laser */}
+            <div style={{
+              position: 'absolute',
+              top: 0, left: '-100%', right: '100%',
               height: '2px',
-              background: 'linear-gradient(90deg, #7c3aed, #06b6d4, #ec4899)',
+              background: 'linear-gradient(90deg, transparent, #06b6d4, #a78bfa, transparent)',
+              animation: 'laserScan 4s linear infinite',
             }} />
 
             {status === 'sent' ? (
-              <div style={{ textAlign: 'center', padding: '3rem 0' }}>
+              <div style={{ textAlign: 'center', padding: '3rem 0', position: 'relative', zIndex: 2 }}>
                 <div style={{ fontSize: '4rem', marginBottom: '1.25rem', animation: 'starsAppear 0.6s ease' }}>🚀✨</div>
                 <h3 style={{
                   fontFamily: 'Orbitron, sans-serif',
                   color: '#a78bfa',
                   fontSize: '1.3rem',
                   marginBottom: '0.75rem',
+                  textShadow: '0 0 15px rgba(167, 139, 250, 0.5)'
                 }}>
-                  Pesan Diluncurkan!
+                  Transmisi Berhasil!
                 </h3>
-                <p style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', color: '#64748b', fontSize: '0.9rem' }}>
+                <p style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', color: '#94a3b8', fontSize: '0.9rem' }}>
                   Sinyal Anda sedang melintasi galaksi. Saya akan membalas secepatnya!
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem' }}>
-                  <div>
-                    <label style={labelStyle}>Nama Anda</label>
+              <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', position: 'relative', zIndex: 2 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.5rem' }}>
+                  <div className="input-group">
+                    <label className={`contact-label ${errors.name ? 'error-text' : ''}`}>Identitas / Nama</label>
                     <input
                       type="text"
-                      placeholder="Okan Syailendra Wahyudi"
+                      placeholder="Astronot Doe"
                       value={form.name}
-                      onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-                      style={inputStyle}
-                      onFocus={onFocus}
-                      onBlur={onBlur}
-                      required
+                      onChange={e => {
+                        setForm(f => ({ ...f, name: e.target.value }))
+                        if (errors.name) setErrors(err => ({ ...err, name: false }))
+                      }}
+                      className={`contact-input ${errors.name ? 'error-input' : ''}`}
                     />
                   </div>
-                  <div>
-                    <label style={labelStyle}>Alamat Email</label>
+                  <div className="input-group">
+                    <label className={`contact-label ${errors.email ? 'error-text' : ''}`}>Koordinat Email</label>
                     <input
                       type="email"
-                      placeholder="Kannz@example.com"
+                      placeholder="orbit@galaksi.com"
                       value={form.email}
-                      onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-                      style={inputStyle}
-                      onFocus={onFocus}
-                      onBlur={onBlur}
-                      required
+                      onChange={e => {
+                        setForm(f => ({ ...f, email: e.target.value }))
+                        if (errors.email) setErrors(err => ({ ...err, email: false }))
+                      }}
+                      className={`contact-input ${errors.email ? 'error-input' : ''}`}
                     />
                   </div>
                 </div>
 
-                <div>
-                  <label style={labelStyle}>Pesan</label>
+                <div className="input-group">
+                  <label className={`contact-label ${errors.message ? 'error-text' : ''}`}>Pesan Transmisi</label>
                   <textarea
-                    placeholder="Halo! Saya tertarik untuk berkolaborasi dalam proyek..."
+                    placeholder="Laporkan temuan baru atau ajakan misi bersama di sini..."
                     value={form.message}
-                    onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
+                    onChange={e => {
+                      setForm(f => ({ ...f, message: e.target.value }))
+                      if (errors.message) setErrors(err => ({ ...err, message: false }))
+                    }}
                     rows={5}
-                    style={{ ...inputStyle, resize: 'vertical', minHeight: '130px' }}
-                    onFocus={onFocus as unknown as React.FocusEventHandler<HTMLTextAreaElement>}
-                    onBlur={onBlur as unknown as React.FocusEventHandler<HTMLTextAreaElement>}
-                    required
+                    className={`contact-input ${errors.message ? 'error-input' : ''}`}
+                    style={{ resize: 'vertical', minHeight: '130px' }}
                   />
                 </div>
+
+                {errorMsg && (
+                  <div className="error-alert">
+                    <span>⚠️</span> {errorMsg}
+                  </div>
+                )}
 
                 <button
                   ref={btnRef}
                   type="submit"
                   disabled={status === 'launching'}
-                  style={{
-                    fontFamily: 'Orbitron, sans-serif',
-                    fontSize: '0.85rem',
-                    fontWeight: 600,
-                    letterSpacing: '0.08em',
-                    padding: '15px 32px',
-                    borderRadius: '10px',
-                    border: 'none',
-                    cursor: status === 'launching' ? 'not-allowed' : 'pointer',
-                    background: status === 'launching'
-                      ? 'rgba(124,58,237,0.3)'
-                      : 'linear-gradient(135deg, #7c3aed, #06b6d4)',
-                    color: '#ffffff',
-                    boxShadow: status === 'launching' ? 'none' : '0 0 30px rgba(124,58,237,0.4)',
-                    transition: 'all 0.3s ease',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '8px',
-                    alignSelf: 'flex-start',
-                    minWidth: '180px',
-                    position: 'relative',
-                    overflow: 'hidden',
-                  }}
-                  onMouseEnter={e => {
-                    if (status === 'idle') {
-                      e.currentTarget.style.transform = 'translateY(-2px)'
-                      e.currentTarget.style.boxShadow = '0 0 50px rgba(124,58,237,0.6)'
-                    }
-                  }}
-                  onMouseLeave={e => {
-                    e.currentTarget.style.transform = 'translateY(0)'
-                    e.currentTarget.style.boxShadow = status === 'idle' ? '0 0 30px rgba(124,58,237,0.4)' : 'none'
-                  }}
+                  className={`contact-btn ${status === 'launching' ? 'launching' : ''}`}
                 >
                   {status === 'idle' && (
                     <>
-                      <span>🚀</span>
+                      <span className="btn-icon">🚀</span>
                       <span>Luncurkan Pesan</span>
                     </>
                   )}
                   {status === 'launching' && (
                     <>
                       <span style={{ animation: 'rocketLaunch 1.8s ease forwards', display: 'inline-block' }}>🚀</span>
-                      <span>Meluncur...</span>
+                      <span>Mengirim...</span>
                     </>
                   )}
                 </button>
@@ -280,9 +250,9 @@ export default function Contact() {
           {/* Social links */}
           <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', marginTop: '2.5rem', flexWrap: 'wrap' }}>
             {[
-              { label: 'GitHub', icon: '⌨️', href: 'https://github.com/Okansyailendra' },
-              { label: 'Instagram', icon: '📷', href: 'https://www.instagram.com/okan_syailendra0/' },
-              { label: 'Email', icon: '📡', href: 'mailto:otansyailendra123@gmail.com' },
+              { label: 'GitHub', icon: '/mdi--github.svg', href: 'https://github.com/Okansyailendra' },
+              { label: 'Instagram', icon: '/skill-icons--instagram.svg', href: 'https://www.instagram.com/okan_syailendra0/' },
+              { label: 'Email', icon: '/ic--baseline-email.svg', href: 'mailto:otansyailendra123@gmail.com' },
             ].map(({ label, icon, href }) => (
               <a
                 key={label}
@@ -313,13 +283,188 @@ export default function Contact() {
                   e.currentTarget.style.background = 'rgba(255,255,255,0.02)'
                 }}
               >
-                <span>{icon}</span>
+                <img src={icon} alt={label} style={{ width: '18px', height: '18px', filter: label === 'GitHub' || label === 'Email' ? 'invert(1) opacity(0.8)' : 'none' }} />
                 <span>{label}</span>
               </a>
             ))}
           </div>
         </div>
       </div>
+
+      <style>{`
+        .contact-container {
+          border-radius: 24px;
+          padding: clamp(1.5rem, 4vw, 2.5rem);
+          position: relative;
+          overflow: hidden;
+          background: rgba(10, 10, 35, 0.4);
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          box-shadow: 0 0 40px rgba(6, 182, 212, 0.1), inset 0 0 20px rgba(124, 58, 237, 0.05);
+          backdrop-filter: blur(12px);
+          animation: floatForm 6s ease-in-out infinite;
+        }
+
+        @keyframes floatForm {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
+
+        @keyframes laserScan {
+          0% { top: 0%; opacity: 0; }
+          10% { opacity: 1; }
+          90% { opacity: 1; }
+          100% { top: 100%; opacity: 0; }
+        }
+
+        .contact-input {
+          width: 100%;
+          background: rgba(0, 0, 0, 0.2);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          padding: 14px 18px;
+          color: #f8fafc;
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          font-size: 0.95rem;
+          outline: none;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .contact-input:focus {
+          background: rgba(6, 182, 212, 0.05);
+          border-color: rgba(6, 182, 212, 0.4);
+          border-bottom: 2px solid #06b6d4;
+          box-shadow: 0 10px 30px -10px rgba(6, 182, 212, 0.3);
+          transform: translateY(-2px);
+        }
+
+        .contact-input.error-input {
+          border-color: rgba(239, 68, 68, 0.5);
+          border-bottom: 2px solid #ef4444;
+          background: rgba(239, 68, 68, 0.05);
+          box-shadow: 0 5px 20px -10px rgba(239, 68, 68, 0.3);
+          animation: shake 0.4s ease;
+        }
+
+        @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          25% { transform: translateX(-5px); }
+          50% { transform: translateX(5px); }
+          75% { transform: translateX(-5px); }
+        }
+
+        .contact-label {
+          font-family: 'Orbitron', sans-serif;
+          font-size: 0.75rem;
+          color: #38bdf8;
+          font-weight: 600;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          display: block;
+          margin-bottom: 8px;
+          transition: color 0.3s;
+        }
+
+        .contact-label.error-text {
+          color: #f87171;
+        }
+
+        .error-alert {
+          background: rgba(239, 68, 68, 0.1);
+          border: 1px solid rgba(239, 68, 68, 0.3);
+          color: #fca5a5;
+          padding: 12px 16px;
+          border-radius: 8px;
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          font-size: 0.85rem;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          animation: fadeAlert 0.3s ease;
+        }
+
+        @keyframes fadeAlert {
+          from { opacity: 0; transform: translateY(-5px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        .input-group:focus-within .contact-label:not(.error-text) {
+          color: #06b6d4;
+          text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+        }
+
+        .contact-btn {
+          font-family: 'Orbitron', sans-serif;
+          font-size: 0.9rem;
+          font-weight: 600;
+          letter-spacing: 0.1em;
+          padding: 16px 36px;
+          border-radius: 12px;
+          border: 1px solid rgba(6, 182, 212, 0.3);
+          cursor: pointer;
+          background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(124, 58, 237, 0.2));
+          color: #ffffff;
+          box-shadow: 0 0 20px rgba(6, 182, 212, 0.2);
+          transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 12px;
+          align-self: flex-start;
+          min-width: 200px;
+          position: relative;
+          overflow: hidden;
+          text-transform: uppercase;
+        }
+
+        .contact-btn::before {
+          content: '';
+          position: absolute;
+          top: 0; left: -100%; width: 50%; height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+          transform: skewX(-20deg);
+          transition: left 0.5s;
+        }
+
+        .contact-btn:hover:not(:disabled)::before {
+          left: 150%;
+        }
+
+        .contact-btn:hover:not(:disabled) {
+          transform: translateY(-4px) scale(1.02);
+          background: linear-gradient(135deg, rgba(6, 182, 212, 0.4), rgba(124, 58, 237, 0.4));
+          border-color: rgba(6, 182, 212, 0.8);
+          box-shadow: 0 10px 30px rgba(6, 182, 212, 0.4), inset 0 0 15px rgba(124, 58, 237, 0.3);
+          text-shadow: 0 0 8px rgba(255,255,255,0.5);
+        }
+
+        .contact-btn:active:not(:disabled) {
+          transform: translateY(0) scale(0.98);
+        }
+
+        .contact-btn.launching {
+          cursor: not-allowed;
+          background: rgba(124, 58, 237, 0.2);
+          border-color: rgba(124, 58, 237, 0.4);
+          box-shadow: none;
+        }
+
+        .btn-icon {
+          transition: transform 0.3s;
+        }
+
+        .contact-btn:hover:not(:disabled) .btn-icon {
+          transform: translateY(-20px);
+          opacity: 0;
+          animation: flyRocket 0.6s ease forwards;
+        }
+
+        @keyframes flyRocket {
+          0% { transform: translateY(20px); opacity: 0; }
+          50% { transform: translateY(0); opacity: 1; }
+          100% { transform: translateY(0); opacity: 1; }
+        }
+      `}</style>
     </section>
   )
 }

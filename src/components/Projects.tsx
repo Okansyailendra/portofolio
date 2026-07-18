@@ -1,6 +1,7 @@
 import { useRef, useEffect } from 'react'
 
 import { GitHubCalendar } from 'react-github-calendar'
+import { Moon, FloatingIcon } from './SpaceDecorations'
 
 const PROJECTS = [
   {
@@ -114,6 +115,10 @@ export default function Projects() {
         pointerEvents: 'none',
         animation: 'nebulaPulse 13s ease-in-out 3s infinite',
       }} />
+
+      {/* SPACE DECORATIONS */}
+      <Moon top="10%" left="2%" size="180px" delay="2s" />
+      <FloatingIcon icon="👨‍🚀" top="45%" right="5%" size="3.5rem" animDur="12" rotation="25" opacity="0.6" />
 
       <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
         {/* Header */}

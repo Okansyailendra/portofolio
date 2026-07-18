@@ -1,5 +1,6 @@
 import { useRef, useEffect } from 'react'
 import SpaceGame from './SpaceGame'
+import { Planet, FloatingIcon } from './SpaceDecorations'
 
 const SKILLS = [
   { name: 'JavaScript', icon: '/skill-icons--javascript.svg', color: '#eab308', desc: 'Web & Game Logic' },
@@ -92,6 +93,11 @@ export default function Skills() {
         pointerEvents: 'none',
         zIndex: -1,
       }} />
+
+      {/* SPACE DECORATIONS */}
+      <Planet top="20%" right="-10%" color="#3b82f6" size="300px" delay="1s" />
+      <FloatingIcon icon="🛸" top="65%" left="5%" size="3rem" animDur="10" rotation="-15" opacity="0.5" />
+
 
       <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
         {/* Header */}

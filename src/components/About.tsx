@@ -1,11 +1,12 @@
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import { Planet, Sun, ShootingStar, FloatingIcon } from './SpaceDecorations'
 
 /* ── Astronaut Suit SVG — Dynamic Zero-Gravity Floating Pose ── */
 const AstronautPhoto = () => (
   <div style={{
     position: 'relative',
-    width: 380,
-    height: 460,
+    width: 450,
+    height: 550,
   }}>
     {/* Outer glow */}
     <div style={{
@@ -28,7 +29,7 @@ const AstronautPhoto = () => (
       position: 'relative',
       zIndex: 2,
     }}>
-      <svg width="380" height="460" viewBox="0 0 380 460" style={{ overflow: 'visible' }}>
+      <svg width="450" height="550" viewBox="0 0 380 460" style={{ overflow: 'visible' }}>
         <defs>
           <clipPath id="visorClip">
             <ellipse cx="190" cy="108" rx="58" ry="62" />
@@ -177,10 +178,10 @@ const AstronautPhoto = () => (
             {/* Photo face */}
             <image
               href="/foto.png"
-              x="130"
-              y="44"
-              width="120"
-              height="128"
+              x="75"
+              y="-7"
+              width="230"
+              height="230"
               clipPath="url(#visorClip)"
               preserveAspectRatio="xMidYMid slice"
             />
@@ -345,6 +346,14 @@ export default function About() {
         pointerEvents: 'none',
         animation: 'nebulaPulse 16s ease-in-out 5s infinite',
       }} />
+
+      {/* SPACE DECORATIONS */}
+      <Sun top="5%" left="8%" size="250px" />
+      <Planet top="70%" left="-5%" color="#ec4899" size="120px" delay="2s" />
+      <ShootingStar top="15%" delay="0s" />
+      <ShootingStar top="40%" delay="4s" />
+      <FloatingIcon icon="🛰️" top="25%" right="10%" size="4rem" animDur="14" rotation="15" opacity="0.6" />
+
 
       {/* ═══════ MAIN CONTENT ═══════ */}
       <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem', alignItems: 'center' }}>

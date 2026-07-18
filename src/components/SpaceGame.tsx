@@ -43,6 +43,7 @@ export default function SpaceGame() {
     lasers: [] as GameObject[],
     asteroids: [] as GameObject[],
     stars: [] as GameObject[],
+    bgStars: [] as any[],
     particles: [] as any[],
     lastAsteroidTime: 0,
     asteroidInterval: 1200, // spawn every 1.2s initially
@@ -74,6 +75,13 @@ export default function SpaceGame() {
     game.lasers = []
     game.asteroids = []
     game.stars = []
+    game.bgStars = Array.from({length: 80}).map(() => ({
+      x: Math.random() * w, 
+      y: Math.random() * h, 
+      radius: Math.random() * 1.5 + 0.5, 
+      speed: Math.random() * 3 + 0.5, 
+      alpha: Math.random() * 0.6 + 0.2 
+    }))
     game.particles = []
     game.score = 0
     game.asteroidInterval = 1200
@@ -94,16 +102,34 @@ export default function SpaceGame() {
     // Shield
     if (isInvulnerable) {
       const time = Date.now()
-      const pulse = Math.sin(time / 100) * 0.2 + 0.8
+      const pulse = Math.sin(time / 150) * 0.1 + 0.9
+      const radius = w * 0.8 * pulse
+
+      // Inner glow
       ctx.beginPath()
-      ctx.arc(0, 0, w, 0, Math.PI * 2)
-      ctx.fillStyle = `rgba(250, 204, 21, ${0.3 * pulse})`
+      ctx.arc(0, 0, radius, 0, Math.PI * 2)
+      ctx.fillStyle = 'rgba(6, 182, 212, 0.15)'
       ctx.fill()
-      ctx.strokeStyle = `rgba(250, 204, 21, ${0.8 * pulse})`
+      
+      // Outer bright ring with purple glow
+      ctx.shadowBlur = 20
+      ctx.shadowColor = '#a78bfa'
+      ctx.beginPath()
+      ctx.arc(0, 0, radius, 0, Math.PI * 2)
+      ctx.strokeStyle = 'rgba(6, 182, 212, 0.9)'
+      ctx.lineWidth = 3
+      ctx.stroke()
+      
+      // Rotating pink dashed inner ring
+      ctx.beginPath()
+      ctx.setLineDash([8, 12])
+      ctx.arc(0, 0, radius * 0.85, (time / 400) % (Math.PI * 2), (time / 400) % (Math.PI * 2) + Math.PI * 2)
+      ctx.strokeStyle = 'rgba(236, 72, 153, 0.9)'
       ctx.lineWidth = 2
       ctx.stroke()
+      ctx.setLineDash([])
+      ctx.shadowBlur = 0
     }
-
     // Engine glow
     const time = Date.now()
     const engineGlow = Math.sin(time / 50) * 5 + 10
@@ -220,8 +246,22 @@ export default function SpaceGame() {
         game.isInvulnerable = false
       }
 
-      // Clear Canvas
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      // Clear Canvas and Draw Background
+      ctx.fillStyle = '#030712' // very dark space color
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+      // Draw and update background stars (parallax)
+      game.bgStars.forEach(star => {
+        star.y += star.speed
+        if (star.y > canvas.height) {
+          star.y = 0
+          star.x = Math.random() * canvas.width
+        }
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`
+        ctx.beginPath()
+        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2)
+        ctx.fill()
+      })
 
       // Move Ship
       if (game.keys.left) game.ship.x -= game.ship.speed
