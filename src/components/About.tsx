@@ -506,7 +506,7 @@ export default function About() {
               {[
                 { label: '2', symbol: '+', title: 'TAHUN', subtitle: 'Pengalaman', color: '#a78bfa', icon: '🪐', delay: '0s' },
                 { label: '10', symbol: '+', title: 'PROYEK', subtitle: 'Selesai', color: '#06b6d4', icon: '🛸', delay: '0.15s' },
-                { label: '7', symbol: '+', title: 'TECH', subtitle: 'Stack', color: '#ec4899', icon: '☄️', delay: '0.3s' },
+                { label: '12', symbol: '+', title: 'TECH', subtitle: 'Stack', color: '#ec4899', icon: '☄️', delay: '0.3s' },
               ].map(({ label, symbol, title, subtitle, color, icon, delay }) => (
                 <div key={title} className="hologram-card" style={{
                   padding: '1.5rem 1rem',

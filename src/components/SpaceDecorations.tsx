@@ -1,4 +1,3 @@
-import React from 'react'
 
 export const Planet = ({ top, left, right, bottom, color, size, delay = '0s' }: any) => (
   <div style={{
